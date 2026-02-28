@@ -6,22 +6,23 @@ Systematic problem-solving practice in Python. Organized by topic and difficulty
 
 ## Progress
 
-![Problems Solved](https://img.shields.io/badge/Solved-3-brightgreen)
+![Problems Solved](https://img.shields.io/badge/Solved-4-brightgreen)
 ![Easy](https://img.shields.io/badge/Easy-1-green)
 ![Medium](https://img.shields.io/badge/Medium-2-orange)
-![Hard](https://img.shields.io/badge/Hard-0-red)
+![Hard](https://img.shields.io/badge/Hard-1-red)
 
 | Topic | Easy | Medium | Hard | Total |
 |---|---|---|---|---|
-| Arrays | 1 | 0 | 0 | 1 |
+| Arrays | 1 | 0 | 1 | 2 |
 | Linked Lists | 0 | 1 | 0 | 1 |
 | Strings | 0 | 1 | 0 | 1 |
-| **Total** | **1** | **2** | **0** | **3** |
+| **Total** | **1** | **2** | **1** | **4** |
 
 ---
 
 ## Recent Solutions
 
+- `Hard` — 4. Median of Two Sorted Arrays
 - `Medium` — 3. Longest Substring Without Repeating Characters
 - `Medium` — 2. Add Two Numbers
 - `Easy` — 1. Two Sum
