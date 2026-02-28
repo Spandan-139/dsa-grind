@@ -1,56 +1,88 @@
 import os
 from pathlib import Path
 from collections import defaultdict
+import re
 
 DIFFICULTIES = {"Easy": 0, "Medium": 0, "Hard": 0}
 TOPICS = defaultdict(lambda: {"Easy": 0, "Medium": 0, "Hard": 0})
 PROBLEMS = []
 
-def parse_solution(file_path: Path):
+
+def parse_problem_folder(folder: Path):
+    readme = folder / "README.md"
+    if not readme.exists():
+        return None
+
     try:
-        content = file_path.read_text(encoding="utf-8")
+        content = readme.read_text(encoding="utf-8")
+
+        # Extract difficulty from <h3>Easy</h3> or ## Easy etc
         difficulty = None
-        topic = None
-        title = file_path.parent.name  # folder name is problem name
+        for diff in ["Easy", "Medium", "Hard"]:
+            if f"<h3>{diff}</h3>" in content or f"**{diff}**" in content or f"#{diff}" in content.replace(" ", ""):
+                difficulty = diff
+                break
+            if re.search(rf'\b{diff}\b', content):
+                difficulty = diff
+                break
 
-        for line in content.split("\n"):
-            line_lower = line.lower().strip()
-            if "easy" in line_lower and ("difficulty" in line_lower or "*" in line):
-                difficulty = "Easy"
-            elif "medium" in line_lower and ("difficulty" in line_lower or "*" in line):
-                difficulty = "Medium"
-            elif "hard" in line_lower and ("difficulty" in line_lower or "*" in line):
-                difficulty = "Hard"
-
-        # Infer topic from folder structure
-        parent = str(file_path.parent).lower()
-        if any(x in parent for x in ["array", "two-sum", "best-time"]):
-            topic = "Arrays"
-        elif any(x in parent for x in ["linked-list", "add-two"]):
-            topic = "Linked Lists"
-        elif any(x in parent for x in ["tree", "binary-tree"]):
-            topic = "Trees"
-        elif any(x in parent for x in ["string", "palindrome", "anagram"]):
-            topic = "Strings"
-        elif any(x in parent for x in ["dynamic", "climb", "coin"]):
-            topic = "Dynamic Programming"
-        elif any(x in parent for x in ["graph", "island", "course"]):
-            topic = "Graphs"
+        # Extract title from first <h2> or # heading
+        title = folder.name
+        title_match = re.search(r'<h2[^>]*>(.*?)</h2>', content, re.IGNORECASE)
+        if title_match:
+            title = re.sub(r'<[^>]+>', '', title_match.group(1)).strip()
         else:
-            topic = "Other"
+            h1_match = re.search(r'^#\s+(.+)$', content, re.MULTILINE)
+            if h1_match:
+                title = h1_match.group(1).strip()
+
+        # Extract topic from tags or infer from title
+        topic = "Other"
+        topic_match = re.search(r'(?:Topics?|Category)[:\s]+([^\n]+)', content, re.IGNORECASE)
+        if topic_match:
+            topic = topic_match.group(1).strip()
+        else:
+            name = folder.name.lower()
+            if any(x in name for x in ["array", "matrix", "subarray", "sum", "product"]):
+                topic = "Arrays"
+            elif any(x in name for x in ["string", "palindrome", "anagram", "substring"]):
+                topic = "Strings"
+            elif any(x in name for x in ["linked-list", "add-two-numbers", "reverse-linked"]):
+                topic = "Linked Lists"
+            elif any(x in name for x in ["tree", "bst", "binary-tree", "level-order"]):
+                topic = "Trees"
+            elif any(x in name for x in ["graph", "island", "course", "network"]):
+                topic = "Graphs"
+            elif any(x in name for x in ["dynamic", "climb", "coin", "house-robber", "knapsack"]):
+                topic = "Dynamic Programming"
+            elif any(x in name for x in ["binary-search", "search-in"]):
+                topic = "Binary Search"
+            elif any(x in name for x in ["stack", "queue", "valid-parentheses", "min-stack"]):
+                topic = "Stack & Queue"
+            elif any(x in name for x in ["two-pointer", "three-sum", "container"]):
+                topic = "Two Pointers"
+            elif any(x in name for x in ["sliding-window", "maximum-subarray", "longest-substring"]):
+                topic = "Sliding Window"
+            elif any(x in name for x in ["heap", "top-k", "kth-largest"]):
+                topic = "Heap"
+            elif any(x in name for x in ["backtrack", "permutation", "combination", "subsets"]):
+                topic = "Backtracking"
 
         if difficulty:
-            return {"difficulty": difficulty, "topic": topic, "title": title, "file": file_path.name}
-    except Exception:
-        pass
+            return {"difficulty": difficulty, "topic": topic, "title": title, "folder": folder.name}
+
+    except Exception as e:
+        print(f"Error parsing {folder}: {e}")
     return None
 
 
-# Scan all Python files
-for py_file in Path(".").rglob("*.py"):
-    if "venv" in str(py_file) or ".github" in str(py_file):
+# Scan all problem folders
+for folder in sorted(Path(".").iterdir()):
+    if not folder.is_dir():
         continue
-    result = parse_solution(py_file)
+    if folder.name.startswith(".") or folder.name in ["venv", "__pycache__"]:
+        continue
+    result = parse_problem_folder(folder)
     if result:
         PROBLEMS.append(result)
         diff = result["difficulty"]
@@ -81,7 +113,7 @@ tt = te + tm + th
 recent = PROBLEMS[-10:][::-1]
 recent_rows = ""
 for p in recent:
-    recent_rows += f"- `{p['difficulty']}` — {p['title'] or p['file']}\n"
+    recent_rows += f"- `{p['difficulty']}` — {p['title']}\n"
 
 if not recent_rows:
     recent_rows = "_No problems solved yet — start grinding!_\n"
@@ -149,3 +181,5 @@ _Auto-generated by GitHub Actions — updates on every push_
 
 Path("README.md").write_text(readme, encoding="utf-8")
 print(f"README updated — {total} problems solved")
+for p in PROBLEMS:
+    print(f"  {p['difficulty']:6} | {p['topic']:20} | {p['title']}")
