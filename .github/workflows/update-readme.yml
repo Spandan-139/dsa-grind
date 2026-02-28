@@ -3,6 +3,12 @@ name: Update README
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - README.md
+
+concurrency:
+  group: update-readme-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   update-readme:
