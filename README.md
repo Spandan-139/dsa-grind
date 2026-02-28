@@ -6,20 +6,25 @@ Systematic problem-solving practice in Python. Organized by topic and difficulty
 
 ## Progress
 
-![Problems Solved](https://img.shields.io/badge/Solved-0-brightgreen)
-![Easy](https://img.shields.io/badge/Easy-0-green)
-![Medium](https://img.shields.io/badge/Medium-0-orange)
+![Problems Solved](https://img.shields.io/badge/Solved-3-brightgreen)
+![Easy](https://img.shields.io/badge/Easy-1-green)
+![Medium](https://img.shields.io/badge/Medium-2-orange)
 ![Hard](https://img.shields.io/badge/Hard-0-red)
 
 | Topic | Easy | Medium | Hard | Total |
 |---|---|---|---|---|
-| **Total** | **0** | **0** | **0** | **0** |
+| Arrays | 1 | 0 | 0 | 1 |
+| Linked Lists | 0 | 1 | 0 | 1 |
+| Strings | 0 | 1 | 0 | 1 |
+| **Total** | **1** | **2** | **0** | **3** |
 
 ---
 
 ## Recent Solutions
 
-_No problems solved yet — start grinding!_
+- `Medium` — 3. Longest Substring Without Repeating Characters
+- `Medium` — 2. Add Two Numbers
+- `Easy` — 1. Two Sum
 
 ---
 
