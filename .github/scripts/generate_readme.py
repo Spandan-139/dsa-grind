@@ -11,21 +11,35 @@ def parse_solution(file_path: Path):
         content = file_path.read_text(encoding="utf-8")
         difficulty = None
         topic = None
-        title = None
-        link = None
+        title = file_path.parent.name  # folder name is problem name
 
         for line in content.split("\n"):
-            line = line.strip().lstrip("#").strip()
-            if line.lower().startswith("difficulty:"):
-                difficulty = line.split(":", 1)[1].strip()
-            elif line.lower().startswith("topic:"):
-                topic = line.split(":", 1)[1].strip()
-            elif line.lower().startswith("link:"):
-                link = line.split(":", 1)[1].strip() + (line.split("https", 1)[1] if "https" in line else "")
-            elif line.lower().startswith("problem:"):
-                title = line.split(":", 1)[1].strip()
+            line_lower = line.lower().strip()
+            if "easy" in line_lower and ("difficulty" in line_lower or "*" in line):
+                difficulty = "Easy"
+            elif "medium" in line_lower and ("difficulty" in line_lower or "*" in line):
+                difficulty = "Medium"
+            elif "hard" in line_lower and ("difficulty" in line_lower or "*" in line):
+                difficulty = "Hard"
 
-        if difficulty and topic:
+        # Infer topic from folder structure
+        parent = str(file_path.parent).lower()
+        if any(x in parent for x in ["array", "two-sum", "best-time"]):
+            topic = "Arrays"
+        elif any(x in parent for x in ["linked-list", "add-two"]):
+            topic = "Linked Lists"
+        elif any(x in parent for x in ["tree", "binary-tree"]):
+            topic = "Trees"
+        elif any(x in parent for x in ["string", "palindrome", "anagram"]):
+            topic = "Strings"
+        elif any(x in parent for x in ["dynamic", "climb", "coin"]):
+            topic = "Dynamic Programming"
+        elif any(x in parent for x in ["graph", "island", "course"]):
+            topic = "Graphs"
+        else:
+            topic = "Other"
+
+        if difficulty:
             return {"difficulty": difficulty, "topic": topic, "title": title, "file": file_path.name}
     except Exception:
         pass
