@@ -6,9 +6,9 @@ Systematic problem-solving practice in Python. Organized by topic and difficulty
 
 ## Progress
 
-![Problems Solved](https://img.shields.io/badge/Solved-7-brightgreen)
+![Problems Solved](https://img.shields.io/badge/Solved-8-brightgreen)
 ![Easy](https://img.shields.io/badge/Easy-1-green)
-![Medium](https://img.shields.io/badge/Medium-5-orange)
+![Medium](https://img.shields.io/badge/Medium-6-orange)
 ![Hard](https://img.shields.io/badge/Hard-1-red)
 
 | Topic | Easy | Medium | Hard | Total |
@@ -16,13 +16,14 @@ Systematic problem-solving practice in Python. Organized by topic and difficulty
 | Arrays | 1 | 0 | 1 | 2 |
 | Linked Lists | 0 | 1 | 0 | 1 |
 | Other | 0 | 2 | 0 | 2 |
-| Strings | 0 | 2 | 0 | 2 |
-| **Total** | **1** | **5** | **1** | **7** |
+| Strings | 0 | 3 | 0 | 3 |
+| **Total** | **1** | **6** | **1** | **8** |
 
 ---
 
 ## Recent Solutions
 
+- `Medium` — 8. String to Integer (atoi)
 - `Medium` — 7. Reverse Integer
 - `Medium` — 6. Zigzag Conversion
 - `Medium` — 5. Longest Palindromic Substring
