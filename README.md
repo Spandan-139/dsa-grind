@@ -6,8 +6,8 @@ Systematic problem-solving practice in Python. Organized by topic and difficulty
 
 ## Progress
 
-![Problems Solved](https://img.shields.io/badge/Solved-8-brightgreen)
-![Easy](https://img.shields.io/badge/Easy-1-green)
+![Problems Solved](https://img.shields.io/badge/Solved-9-brightgreen)
+![Easy](https://img.shields.io/badge/Easy-2-green)
 ![Medium](https://img.shields.io/badge/Medium-6-orange)
 ![Hard](https://img.shields.io/badge/Hard-1-red)
 
@@ -16,13 +16,14 @@ Systematic problem-solving practice in Python. Organized by topic and difficulty
 | Arrays | 1 | 0 | 1 | 2 |
 | Linked Lists | 0 | 1 | 0 | 1 |
 | Other | 0 | 2 | 0 | 2 |
-| Strings | 0 | 3 | 0 | 3 |
-| **Total** | **1** | **6** | **1** | **8** |
+| Strings | 1 | 3 | 0 | 4 |
+| **Total** | **2** | **6** | **1** | **9** |
 
 ---
 
 ## Recent Solutions
 
+- `Easy` — 9. Palindrome Number
 - `Medium` — 8. String to Integer (atoi)
 - `Medium` — 7. Reverse Integer
 - `Medium` — 6. Zigzag Conversion
