@@ -12,7 +12,7 @@ class MinStack:
 
     def pop(self):
         if not self.stack and not self.minstack:
-            return ("Stack Underflow")
+            continue
         else:
             self.stack.pop()
             self.minstack.pop()
