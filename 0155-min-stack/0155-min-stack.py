@@ -11,11 +11,8 @@ class MinStack:
             self.minstack.append(min(val, self.minstack[-1]))
 
     def pop(self):
-        if not self.stack and not self.minstack:
-            continue
-        else:
-            self.stack.pop()
-            self.minstack.pop()
+        self.stack.pop()
+        self.minstack.pop()
 
     def top(self):
         return self.stack[-1]  # last element = top
