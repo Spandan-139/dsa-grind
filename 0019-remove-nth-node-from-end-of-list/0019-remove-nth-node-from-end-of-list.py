@@ -1,20 +1,15 @@
 class Solution:
-    def removeNthFromEnd(self, head, n):
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
         dummy = ListNode(0)
         dummy.next = head
-        
-        fast = slow = dummy
-        
-        # move fast n+1 steps
-        for _ in range(n + 1):
+        slow, fast = dummy, dummy
+        for i in range(n):
             fast = fast.next
-        
-        # move both pointers
-        while fast:
-            fast = fast.next
+        while fast.next:
             slow = slow.next
-        
-        # remove node
+            fast = fast.next
         slow.next = slow.next.next
-        
+
         return dummy.next
+        
+        
